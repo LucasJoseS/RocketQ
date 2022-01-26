@@ -1,0 +1,30 @@
+{
+  "name": "RocketQ",
+  "version": "1.0.0",
+  "description": "Projeto desenvolvido para gerenciar perguntas anônimas de usários direcionadas ao ADM da pagina. Desenvolvido durante semana NLW Rocketseat - Discover",
+  "main": "src/server.js",
+  "scripts": {
+      "start": "nodemon .",
+      "db-init": "node src/db/init.js"
+  },
+  "Repositor": {
+    "type": "git",
+    "url": "git+https://github.com/LucasJoseS/NLW-Together-Discover.git"
+  },
+  "keywords": [],
+  "author": "LucasJSilva",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LucasJoseS/NLW-Together-Discover/issues"
+  },
+  "homepage": "https://github.com/LucasJoseS/NLW-Together-Discover#readme",
+  "dependencies": {
+    "ejs": "^3.1.6",
+    "express": "^4.17.2",
+    "sqlite": "^4.0.23",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
