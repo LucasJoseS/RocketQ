@@ -5,9 +5,7 @@ const initDb = {
         const db = await Database()
         
         await db.exec(`CREATE TABLE IF NOT EXISTS rooms (id INTEGER PRIMARY KEY, password TEXT)`)
-
-        await db.exec(`CREATE TABLE IF NOT EXISTS  questions (id INTEGER PRIMARY KEY AUTOINCREMENT, body TEXT, read INT)`)
-
+        await db.exec(`CREATE TABLE IF NOT EXISTS  questions (id INTEGER PRIMARY KEY AUTOINCREMENT, body TEXT, read INT, room INTEGER)`)
         await db.close()
     }
 }

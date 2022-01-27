@@ -16,7 +16,7 @@ deleteButtons.forEach (button => {
     button.addEventListener("click", (event) => handleClick(event, false))
 })
 
-function handleClick(event, check = true) {
+async function handleClick(event, check = true) {
     event.preventDefault()
     const text = check ? "Marcar como lida" : "Excluir"
     const roomId = document.querySelector("#room-id").dataset.id

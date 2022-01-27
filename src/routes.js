@@ -6,9 +6,11 @@ const roomController = require('./controllers/RoomController')
 route.get('/', (req, res) => res.render("index", { page: 'enter-room' }))
 route.get('/create-pass', (req, res) => res.render("index", {page: 'create-pass'}))
 
-route.get('/room/:room', (req, res) => res.render("room"))
-
-route.post('/question/:room/:question/:action', (req, res) => questionController.index(req, res))
+route.get('/room/:room', roomController.open)
+route.post('/enter-room', roomController.enter)
 route.post('/create-room', roomController.create)
+
+route.post('/question/:room/:question/:action', questionController.index)
+route.post('/create-question/:room', questionController.create)
 
 module.exports = route
