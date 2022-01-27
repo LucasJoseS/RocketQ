@@ -89,3 +89,9 @@ lerna-debug.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# SQLite
+*.lite
+*.sql
+*.slite3
+*.slite
