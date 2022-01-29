@@ -8,7 +8,6 @@ module.exports = () => {
                 open({ filename: './src/db/rocketq.lite', driver: sqlite3.Database })
                     .then(res => { resolve(res) })
                     .catch(err => { reject(err) })
-                    .finaly(() => { client.close() })
             })
         },
         room_get(room_id) {
@@ -17,7 +16,8 @@ module.exports = () => {
                     client.get(`SELECT * FROM rooms WHERE id = ${room_id}`)
                         .then(res => { resolve(res) })
                         .catch(err => { reject(err) })
-                        .finaly(() => { client.close() })
+
+                    client.close()
                 })
             })
         },
@@ -27,7 +27,8 @@ module.exports = () => {
                     client.run(`INSERT INTO rooms (id, password) VALUES (${room_id}, '${room_password}')`)
                         .then(_ => { resolve(true) })
                         .catch(err => { reject(err) })
-                        .finaly(() => { client.close() })
+
+                    client.close()
                 })
             })
         },
@@ -37,7 +38,8 @@ module.exports = () => {
                     client.all(`SELECT id FROM rooms`)
                         .then(res => { resolve(res) })
                         .catch(err => { reject(err) })
-                        .finaly(() => { client.close() })
+
+                    client.close()
                 })
             })
         },
@@ -47,7 +49,8 @@ module.exports = () => {
                     client.run(`DELETE FROM questions WHERE id = ${question_id}`)
                         .then(_ => { resolve(true) })
                         .catch(err => { reject(err) })
-                        .finaly(() => { client.close() })
+
+                    client.close()
                 })
             })
         },
@@ -57,7 +60,8 @@ module.exports = () => {
                     client.run(`UPDATE questions SET read = 1 WHERE id = ${question_id}`)
                         .then(_ => { resolve(true) })
                         .catch(err => { reject(err) })
-                        .finaly(() => { client.close() })
+
+                    client.close()
                 })
             })
         },
@@ -67,7 +71,8 @@ module.exports = () => {
                     client.run(`INSERT INTO questions (body, read, room) VALUES ('${question_body}', 0, ${room_id})`)
                         .then(_ => { resolve(true) })
                         .catch(err => { reject(err) })
-                        .finaly(() => { client.close() })
+
+                    client.close()
                 })
             })
         },
@@ -77,7 +82,8 @@ module.exports = () => {
                     client.all(`SELECT * FROM questions WHERE room = ${room_id} and read = 0`)
                         .then(res => { resolve(res) })
                         .catch(err => { reject(err) })
-                        .finaly(() => { client.close() })
+
+                    client.close()
                 })
             })
         },
@@ -85,9 +91,10 @@ module.exports = () => {
             return new Promise((resolve, reject) => {
                 this._connection().then(client => {
                     client.all(`SELECT * FROM questions WHERE room = ${room_id} and read = 1`)
-                          .then(res =>  { resolve(res) })
-                          .catch(err => { reject(err) })
-                          .finaly( () => { client.close() })
+                        .then(res => { resolve(res) })
+                        .catch(err => { reject(err) })
+
+                    client.close()
                 })
             })
         },
