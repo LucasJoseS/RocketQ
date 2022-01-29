@@ -16,6 +16,6 @@ Clone este repositório em sua máquina local, instale suas dependências e exec
 ```
 git clone https://github.com/LucasJoseS/NLW-Together-Discover
 cd NLW-Together-Discover
-npm install
+npm install --include=dev
 ./run.sh
 ```

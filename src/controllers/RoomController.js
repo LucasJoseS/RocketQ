@@ -1,50 +1,48 @@
 const Database = require('../db/config.js')
 
 module.exports = {
-    async create(req, res) {
-        let newRoom = ''
-        const pass = req.body.password
+    create(req, res) {
+        let room_id = ''
+        const password = req.body.password
 
         for(var i = 0; i< 6; i++) {
-            newRoom += Math.floor(Math.random() * 10).toString()
+            room_id += Math.floor(Math.random() * 10).toString()
         }
 
-        const db = await Database()
+        const db = Database()
 
-        /* Check the existence of the room */
-        const rooms = await db.all("SELECT id FROM rooms")
-        const roomExist = rooms.some(room => room == newRoom)
+        var room_exists
+        db.rooms_id().then( rooms => { room_exists = rooms.some(room => room == room_id) })
 
-        /* Create the room */
-        if (!roomExist) {
-            await db.run(`INSERT INTO rooms (id, password) values (${newRoom}, ${pass})`)
-            res.redirect(`/room/${newRoom}`)
-            await db.close()
-            
-            return true
+        if(!room_exists) {
+            db.room_create(room_id, password)
+              .then( _ => { res.redirect(`/room/${room_id}`) })
+        } else {
+            this.create(req, res)
         }
-        
-        await create(req, res)
     },
 
-    async open(req, res) {
-        const roomId = req.params.room
-        const db = await Database()
+    open(req, res) {
+        const room_id = req.params.room
+        const db = Database()
 
-        const questionsUnread = await db.all(`SELECT * FROM questions WHERE room = ${roomId} and read = 0`)
-        const questionsRead = await db.all(`SELECT * FROM questions WHERE room = ${roomId} and read = 1`)
-        const haveQuestions = questionsRead.length > 0 || questionsUnread.length > 0
+        Promise.all([db.questions_read(room_id), db.questions_unread(room_id)])
+               .then((questions) => {
+                   const read = questions[0]
+                   const unread = questions[1]
+                   const have_questions = read.length > 0 || unread.length > 0
 
-        res.render("room", {
-            roomId: roomId,
-            haveQuestions: haveQuestions,
-            questionsUnread: questionsUnread,
-            questionsRead: questionsRead
-        })
+                   res.render("room", {
+                       roomId: room_id,
+                       haveQuestions: have_questions,
+                       questionsRead: read,
+                       questionsUnread: unread
+                   })
+               })
     },
 
     async enter(req, res) {
-        const roomId = req.body.roomId
-        res.redirect(`/room/${roomId}`)
+        const room_id = req.body.roomId
+        res.redirect(`/room/${room_id}`)
     }
 }
