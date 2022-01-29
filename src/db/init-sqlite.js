@@ -1,4 +1,4 @@
-const Database = require('./config.js')
+const Database = require("../db/sqlite")
 
 const initDb = {
     async init() {

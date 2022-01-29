@@ -1,9 +1,14 @@
-require("dotenv").config()
 const { Pool } = require('pg')
 
 module.exports = () => {
     return {
-        _pool: new Pool( {connectionString: process.env.DATABASE_URL} ),
+        _pool: new Pool(
+            {
+                connectionString: process.env.DATABASE_URL,
+                ssl: {
+                    rejectUnauthorized: false
+                }
+            }),
         room_get(room_id) {
             return new Promise((resolve, reject) => {
                 this._pool.connect().then(client => {
