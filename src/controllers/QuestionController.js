@@ -1,36 +1,36 @@
 const Database = require("../db/config.js")
 
 module.exports = {
-    async index(req, res) {
-        const db = await Database()
-        const roomId = req.params.room
-        const questionId = req.params.question
+    index(req, res) {
+        const db = Database()
+        const room_id = req.params.room
+        const question_id = req.params.question
         const action = req.params.action
         const password = req.body.password
 
-        const room = await db.get(`SELECT * FROM rooms WHERE id = ${roomId}`)
-        if(room.password == password){
-            if(action == 'delete'){
-                await db.run(`DELETE FROM questions WHERE id = ${questionId}`)
+        db.room_get(room_id).then((room) => {
+            if(room.password == password) {
+                if(action == "delete") {
+                    db.question_delete(question_id)
+                      .then( _ => { res.redirect(`/room/${room_id}`) })
+                }
+                else if(action == "read") {
+                    db.question_mark_as_read(question_id)
+                      .then( _ => { res.redirect(`/room/${room_id}`) })
+                }
             }
-            else if(action == 'read'){
-                await db.run(`UPDATE questions SET read = 1 WHERE id = ${questionId}`)
+            else {
+                res.render("wrong-pass", {roomId: room_id})
             }
-
-            res.redirect(`/room/${roomId}`)
-        }
-        else {
-            res.render("wrong-pass", {roomId: roomId})
-        }
+        })
     },
 
     async create(req, res) {
-        const db = await Database()
+        const db = Database()
         const question = req.body.question
-        const roomId = req.params.room
+        const room_id = req.params.room
 
-        await db.run(`INSERT INTO questions (body, read, room) VALUES ("${question}", 0, ${roomId})`)
-
-        res.redirect(`/room/${roomId}`)
+        db.question_create(question, room_id)
+                           .then( _ => { res.redirect(`/room/${room_id}`) } )
     }
 }

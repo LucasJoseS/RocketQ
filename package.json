@@ -4,8 +4,8 @@
   "description": "Projeto desenvolvido para gerenciar perguntas anônimas de usários direcionadas ao ADM da pagina. Desenvolvido durante semana NLW Rocketseat - Discover",
   "main": "src/server.js",
   "scripts": {
-      "start": "nodemon .",
-      "db-init": "node src/db/init.js"
+    "start": "nodemon .",
+    "db-init": "node src/db/init.js"
   },
   "Repositor": {
     "type": "git",
@@ -19,12 +19,14 @@
   },
   "homepage": "https://github.com/LucasJoseS/NLW-Together-Discover#readme",
   "dependencies": {
+    "dotenv": "^14.3.2",
     "ejs": "^3.1.6",
     "express": "^4.17.2",
-    "sqlite": "^4.0.23",
-    "sqlite3": "^5.0.2"
+    "pg": "^8.7.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "sqlite": "^4.0.23",
+    "sqlite3": "^5.0.2"
   }
 }
