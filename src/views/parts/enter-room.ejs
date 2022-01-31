@@ -1,5 +1,10 @@
 <section>
   <h2>Entre como participante</h2>
+
+  <% if (room_not_found) { %>
+      <p> Sala não encontrada </p>
+  <% } %>
+
   <form action="enter-room" method="POST">
     <label class="sr-only" for="room-id">Código da sala</label>
     <input type="text" id="room-id" name="roomId" placeholder="Código da sala">

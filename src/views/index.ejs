@@ -1,7 +1,7 @@
 <!Doctype html>
 <html>
   <head>
-    <title>Criar Sala - Rocker.Q</title>
+    <title>Rocker.Q</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,7 +29,13 @@
 
       <main>
         <div class="container">
-          <%- include(`parts/${page}`) %>
+          <%- include(`parts/${page}`, () => {
+              if(page == "enter-room") {
+                  return {room_not_found: room_not_found || false}
+              } else {
+                  return {}
+              }
+          }) %>
         </div>
       </main>
     </div>

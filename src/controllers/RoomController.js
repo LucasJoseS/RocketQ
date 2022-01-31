@@ -12,15 +12,16 @@ module.exports = {
 
         const db = Database()
         
-        var room_exists
-        db.rooms_id().then( rooms => { room_exists = rooms.some(room => room == room_id) })
+        db.rooms_id().then(rooms => {
+            const room_exist = rooms.some(room => room.id == room_id)
 
-        if(!room_exists) {
-            db.room_create(room_id, password)
-              .then( _ => { res.redirect(`/room/${room_id}`) })
-        } else {
-            this.create(req, res)
-        }
+            if (!room_exist) {
+                db.room_create(room_id, password)
+                    .then(_ => { res.redirect(`/room/${room_id}`) })
+            } else {
+                this.create(req, res)
+            }
+        })
     },
 
     open(req, res) {
@@ -28,22 +29,32 @@ module.exports = {
         const db = Database()
 
         Promise.all([db.questions_read(room_id), db.questions_unread(room_id)])
-               .then((questions) => {
-                   const read = questions[0]
-                   const unread = questions[1]
-                   const have_questions = read.length > 0 || unread.length > 0
-
-                   res.render("room", {
-                       roomId: room_id,
-                       haveQuestions: have_questions,
-                       questionsRead: read,
-                       questionsUnread: unread
-                   })
-               })
+            .then((questions) => {
+                const read = questions[0]
+                const unread = questions[1]
+                const have_questions = read.length > 0 || unread.length > 0
+                
+                res.render("room", {
+                    roomId: room_id,
+                    haveQuestions: have_questions,
+                    questionsRead: read,
+                    questionsUnread: unread
+                })
+            })
     },
 
-    async enter(req, res) {
+    enter(req, res) {
         const room_id = req.body.roomId
-        res.redirect(`/room/${room_id}`)
+        const db = Database()
+
+        db.rooms_id().then(rooms => {
+            const room_exist = rooms.some(room => room.id == room_id)
+
+            if (room_exist) {
+                res.redirect(`/room/${room_id}`)
+            } else {
+                res.render('index', { page: 'enter-room', room_not_found: true })
+            }
+        })
     }
 }

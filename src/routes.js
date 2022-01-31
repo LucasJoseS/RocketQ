@@ -3,7 +3,7 @@ const route = express.Router()
 const questionController = require('./controllers/QuestionController')
 const roomController = require('./controllers/RoomController')
 
-route.get('/', (req, res) => res.render("index", { page: 'enter-room' }))
+route.get('/', (req, res) => res.render("index", { page: 'enter-room', room_not_found: false }))
 route.get('/create-pass', (req, res) => res.render("index", {page: 'create-pass'}))
 
 route.get('/room/:room', roomController.open)
