@@ -1,4 +1,5 @@
-const Database = require("../db/config.js")
+const driver = process.env.DATABASE_DRIVER || "sqlite"
+const Database = require(`../db/${driver}`)
 
 module.exports = {
     index(req, res) {

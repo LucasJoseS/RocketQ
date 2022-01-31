@@ -1,4 +1,4 @@
-const Database = require("./config.pg")
+const Database = require("../db/postgres")
 
 const initDb = {
     async init() {

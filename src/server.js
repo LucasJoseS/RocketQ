@@ -10,4 +10,5 @@ server.use(express.urlencoded({extended: true}))
 server.use(express.static("public"))
 server.use(route)
 
-server.listen(3000, () => console.log("[server] server running on http://localhost:3000"))
+const port = process.env.PORT
+server.listen(port, () => console.log(`[server] server running on port: ${port}`))

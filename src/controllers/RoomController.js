@@ -1,4 +1,5 @@
-const Database = require('../db/config.js')
+const driver = process.env.DATABASE_DRIVER || "sqlite"
+const Database = require(`../db/${driver}`)
 
 module.exports = {
     create(req, res) {
@@ -10,7 +11,7 @@ module.exports = {
         }
 
         const db = Database()
-
+        
         var room_exists
         db.rooms_id().then( rooms => { room_exists = rooms.some(room => room == room_id) })
 
