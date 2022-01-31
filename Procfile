@@ -1,1 +1,1 @@
-web: npm start
+web: npm db-init-postgres && npm start
