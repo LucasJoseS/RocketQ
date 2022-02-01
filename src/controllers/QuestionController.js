@@ -1,5 +1,6 @@
 const driver = process.env.DATABASE_DRIVER || "sqlite"
 const Database = require(`../db/${driver}`)
+const Password = require('./PasswordController')
 
 module.exports = {
     index(req, res) {
@@ -7,7 +8,7 @@ module.exports = {
         const room_id = req.params.room
         const question_id = req.params.question
         const action = req.params.action
-        const password = req.body.password
+        const password = Password.get_password(req)
 
         db.room_get(room_id).then((room) => {
             if(room.password == password) {

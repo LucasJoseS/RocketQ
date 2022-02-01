@@ -1,10 +1,11 @@
 const driver = process.env.DATABASE_DRIVER || "sqlite"
 const Database = require(`../db/${driver}`)
+const Password = require('./PasswordController')
 
 module.exports = {
     create(req, res) {
         let room_id = ''
-        const password = req.body.password
+        const password = Password.get_password(req)
 
         for(var i = 0; i< 6; i++) {
             room_id += Math.floor(Math.random() * 10).toString()
