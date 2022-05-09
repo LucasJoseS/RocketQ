@@ -6,8 +6,7 @@
   "scripts": {
     "start": "node  src/server.js",
     "start-dev": "nodemon .",
-    "db-init-postgres": "node src/db/init-postgres.js",
-    "db-init-sqlite": "node src/db/init-sqlite.js"
+    "db-migrate": "node scripts/db-migrate.js"
   },
   "Repositor": {
     "type": "git",
