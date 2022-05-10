@@ -1,4 +1,4 @@
-const DRIVER = process.env.DATABASE_DRIVER
+const DRIVER = process.env.DATABASE_DRIVER || "sqlite"
 
 if (DRIVER === undefined) {
   console.error("DATABASE is undefined")
