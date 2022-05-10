@@ -23,11 +23,11 @@ Todas as configurações são opcionais
 A porta utilizada por padrão é a 5000 porém pode ser redefinida com a váriável de ambiente `PORT`
 
 #### Banco de dados
-O banco padão utilizado é o sqlite porém tambem á o suporte ao banco postgres definindo a variável
-de ambiente`DATABASE_DRIVER = "postgres"`
+O banco padão utilizado é o sqlite porém tambem á o suporte ao banco postgres definindo a variável  
+de ambiente `DATABASE_DRIVER = "postgres"`
 
 ### Execução
-Utilize o commando `npm start` para iniciar a aplicação
+Utilize o commando `npm run db-migrate` para realizar a migração do banco de dados e `npm start` para iniciar a aplicação.
 
 ### Heroku
 Para acessar o site publicado no heroku [Clique aqui](https://young-stream-36865.herokuapp.com/)
