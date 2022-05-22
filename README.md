@@ -24,7 +24,7 @@ A porta utilizada por padrão é a 5000 porém pode ser redefinida com a váriá
 
 #### Banco de dados
 O banco padão utilizado é o sqlite porém tambem á o suporte ao banco postgres definindo a variável  
-de ambiente `DATABASE_DRIVER = "postgres"`
+de ambiente `DATABASE_DRIVER = "postgres"` e `DATABASE_URL = "postgres://[user]:[password]@[host]:[port]/[dbname]"`
 
 ### Execução
 Utilize o commando `npm run db-migrate` para realizar a migração do banco de dados e `npm start` para iniciar a aplicação.
