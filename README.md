@@ -29,5 +29,5 @@ de ambiente `DATABASE_DRIVER = "postgres"` e `DATABASE_URL = "postgres://[user]:
 ### Execução
 Utilize o commando `npm run db-migrate` para realizar a migração do banco de dados e `npm start` para iniciar a aplicação.
 
-### Heroku
-Para acessar o site publicado no heroku [Clique aqui](https://young-stream-36865.herokuapp.com/)
+### Railway
+Para acessar o site publicado no railway [Clique aqui](https://web-production-5ce5.up.railway.app/)
